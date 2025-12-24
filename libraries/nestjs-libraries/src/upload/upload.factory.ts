@@ -1,6 +1,7 @@
 import { CloudflareStorage } from './cloudflare.storage';
 import { IUploadProvider } from './upload.interface';
 import { LocalStorage } from './local.storage';
+import { SupabaseStorage } from './supabase.storage';
 
 export class UploadFactory {
   static createStorage(): IUploadProvider {
@@ -17,6 +18,12 @@ export class UploadFactory {
           process.env.CLOUDFLARE_REGION!,
           process.env.CLOUDFLARE_BUCKETNAME!,
           process.env.CLOUDFLARE_BUCKET_URL!
+        );
+      case 'supabase':
+        return new SupabaseStorage(
+          process.env.SUPABASE_URL!,
+          process.env.SUPABASE_SERVICE_ROLE_KEY!,
+          process.env.SUPABASE_STORAGE_BUCKET!
         );
       default:
         throw new Error(`Invalid storage type ${storageProvider}`);

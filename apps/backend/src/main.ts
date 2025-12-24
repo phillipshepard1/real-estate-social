@@ -33,6 +33,7 @@ async function start() {
         process.env.FRONTEND_URL,
         'http://localhost:6274',
         ...(process.env.MAIN_URL ? [process.env.MAIN_URL] : []),
+        ...(process.env.VERCEL_URL ? [`https://${process.env.VERCEL_URL}`] : []),
       ],
     },
   });
